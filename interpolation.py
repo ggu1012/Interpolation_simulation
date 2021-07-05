@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from psf_utils import PSF, Quantity
+from psf_utils import PSF
+from quantiphy import Quantity
 
 import matplotlib.pyplot as plt
 import os
@@ -169,11 +170,12 @@ for data in file_list:
         psf = PSF(data)
         with Quantity.prefs(map_sf=Quantity.map_sf_to_greek):
             for signal in sorted(psf.all_signals(), key=lambda s: s.name):
-                name = f"{signal.access}({signal.name})"
-
+                print(signal)
+                name = "%s(%s)" %(signal.type.name, signal.name)
                 # X axis
                 if name == "V(drain)":
                     if "sample" in data:
+                        print(signal.ordinate)
                         xAxisSample = signal.ordinate
                     else:
                         xAxisEval = signal.ordinate
